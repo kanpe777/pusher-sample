@@ -1,2 +1,31 @@
-%h1 Pusher#index
-%p Find me in app/views/pusher/index.html.haml
+#data_storage{ data: { 'pusher-key' => Pusher.key } }
+
+:javascript
+  // Enable pusher logging - don't include this in production
+  Pusher.log = function(message) {
+    if (window.console && window.console.log) {
+      console.log(message);
+    }
+  };
+
+  var pusherKey = $('#data_storage').data('pusher-key');
+  var pusher = new Pusher(pusherKey);
+  var channel = pusher.subscribe('test_channel');
+  channel.bind('chat_event', function(data) {
+      $("ul").append("<li>" + data.message + "</li>");
+      });
+
+  $(document).ready(function(){
+    $("#post").click(function(){
+      $.ajax({
+        type: "post",
+        url: "pusher/create",
+        data: "data="+$('#text').val()
+      });
+    });
+  })
+
+%h1 Pusherでくそちゃっと
+%input#text{placeholder: "つぶやく", type: "text"}/
+%input#post{type: "button", value: "送信"}/
+%ul
