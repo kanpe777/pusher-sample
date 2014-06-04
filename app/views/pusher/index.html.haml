@@ -31,3 +31,7 @@
 %input#post{type: "button", value: "送信"}
 = button_to "clear", {action: "clear"}, confirm: "really?"
 %ul
+  - @messages.each do |msg|
+    - msg.content.gsub!(/\r\n|\r|\n/, "<br />")
+    %li= "#{msg.created_at}"
+    = "#{msg.content}"

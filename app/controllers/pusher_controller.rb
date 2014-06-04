@@ -1,6 +1,7 @@
 class PusherController < ApplicationController
   def index
     Pusher.url = ENV["PUSHER_URL"]
+    @messages = Message.all
   end
 
   def create
