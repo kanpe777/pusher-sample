@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'pusher#index'
   post '/pusher/create', to: 'pusher#create'
+  post '/pusher/clear',  to: 'pusher#clear'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
