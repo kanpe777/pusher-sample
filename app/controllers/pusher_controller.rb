@@ -7,7 +7,7 @@ class PusherController < ApplicationController
     render :nothing => true
 
     message = Message.create(content: params[:data])
-    view_message = { date: message.created_at, content: message.content }
+    view_message = { date: message.created_at, content: message.content.gsub(/\r\n|\r|\n/, "<br />") }
     Pusher['test_channel'].trigger('chat_event', { message: view_message })
   end
 end
