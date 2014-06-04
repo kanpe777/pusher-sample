@@ -12,7 +12,8 @@
   var pusher = new Pusher(pusherKey);
   var channel = pusher.subscribe('test_channel');
   channel.bind('chat_event', function(data) {
-      $("ul").append("<li>" + data.message + "</li>");
+    $("ul").append("<li>" + data.message["date"] + "</li>");
+    $("ul").append(data.message["content"]);
       });
 
   $(document).ready(function(){

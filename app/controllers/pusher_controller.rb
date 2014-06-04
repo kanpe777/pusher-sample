@@ -5,7 +5,9 @@ class PusherController < ApplicationController
 
   def create
     render :nothing => true
-    Pusher['test_channel'].trigger('chat_event', { message: params[:data] })
-    flash.keep[:notice] = "Your password has been updated successfully."
+
+    message = Message.create(content: params[:data])
+    view_message = { date: message.created_at, content: message.content }
+    Pusher['test_channel'].trigger('chat_event', { message: view_message })
   end
 end
