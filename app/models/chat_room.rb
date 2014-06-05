@@ -1,7 +1,7 @@
 class ChatRoom < ActiveRecord::Base
   def ChatRoom.initialized_chat
     chat = {
-      messages: [Message.new('Hiさい')]
+      messages: []
     }
   end
 
