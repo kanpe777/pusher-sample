@@ -1,5 +1,5 @@
 class ChatRoomsController < ApplicationController
-  before_action :set_chat_room, only: [:room, :destroy]
+  before_action :set_chat_room, only: [:room, :destroy, :clear]
   def index
     @rooms = ChatRoom.all
   end
@@ -10,6 +10,8 @@ class ChatRoomsController < ApplicationController
 
   def create
     @room = ChatRoom.new(chat_room_params)
+    hash_chat  = ChatRoom.initialized_chat
+    @room.chat = hash_chat.to_json
     if @room.save
       redirect_to action: 'room', id: @room.id, notice: 'Chat room was successfully created.'
     else
@@ -19,11 +21,17 @@ class ChatRoomsController < ApplicationController
 
   # like show
   def room
+    @messages = @room.chat['messages']
   end
 
   def destroy
     @room.destroy
     redirect_to chat_rooms_url, notice: 'Chat room was successfully destroyed.'
+  end
+
+  def clear
+    @room.update_attributes(chat: ChatRoom.initialized_chat)
+    redirect_to action: 'room', id: @room.id, notice: 'Chat history cleared'
   end
 
   private
