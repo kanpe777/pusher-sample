@@ -1,17 +1,18 @@
-#data_storage{ data: { 'pusher-key' => Pusher.key } }
+#data_storage{ data: { 'pusher-key' => Pusher.key, 'room-id' => @room.id } }
 
 :javascript
-  Pusher.log = function() {
+  // Enable pusher logging - don't include this in production
+  Pusher.log = function(message) {
     if (window.console && window.console.log) {
       console.log(message);
     }
-  }
+  };
 
   var pusherKey = $('#data_storage').data('pusher-key');
   var pusher = new Pusher(pusherKey);
   var channel = pusher.subscribe('test_channel');
   channel.bind('chat_event', function(data) {
-    $("ul").append("<li>" + data.message["date"] + "</li>");
+    $("ul").append("<li>" + data.message["date"] + "-" + data.message["speaker"] + "</li>");
     $("ul").append(data.message["content"]);
       });
 
@@ -19,12 +20,11 @@
     $("#post").click(function(){
       $.ajax({
         type: "post",
-        url: "pusher/create",
-        data: "data="+$('#text').val()
+        url: "message",
+        data: "id=" + $('#data_storage').data('room-id') + "&data=" + $('#text').val()
       });
     });
   })
-
 
 %h1= "Welcome to ChatRoom-#{@room.name}"
 

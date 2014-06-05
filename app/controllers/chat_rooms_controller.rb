@@ -1,5 +1,5 @@
 class ChatRoomsController < ApplicationController
-  before_action :set_chat_room, only: [:room, :destroy, :clear]
+  before_action :set_chat_room, only: [:room, :destroy, :clear, :message]
   def index
     @rooms = ChatRoom.all
   end
@@ -21,6 +21,7 @@ class ChatRoomsController < ApplicationController
 
   # like show
   def room
+    Pusher.url = ENV["PUSHER_URL"]
     @messages = @room.chat['messages']
   end
 
@@ -32,6 +33,17 @@ class ChatRoomsController < ApplicationController
   def clear
     @room.update_attributes(chat: ChatRoom.initialized_chat)
     redirect_to action: 'room', id: @room.id, notice: 'Chat history cleared'
+  end
+
+  def message
+    render :nothing => true
+    message  = ChatRoom::Message.new(params[:data])
+    chat = @room.chat
+    chat["messages"].push(message)
+    @room.chat = chat.to_json
+    @room.save
+    view_message = {date: message.date, speaker: message.speaker, content: message.content.gsub(/\r\n|\r|\n/, "<br />")}
+    Pusher['test_channel'].trigger('chat_event', { message: view_message })
   end
 
   private

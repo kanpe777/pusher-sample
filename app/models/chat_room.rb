@@ -5,7 +5,7 @@ class ChatRoom < ActiveRecord::Base
     }
   end
 
-  class Message
+  class ChatRoom::Message
     require 'date'
     attr_reader :speaker, :date, :content
     def initialize(content, speaker = 'NANASHI')
