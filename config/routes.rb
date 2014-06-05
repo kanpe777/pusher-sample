@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
   post '/pusher/create',  to: 'pusher#create'
   post '/pusher/clear',   to: 'pusher#clear'
+
+  get '*path', to: 'application#render_404'
 end
