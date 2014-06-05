@@ -1,0 +1,8 @@
+%h1 Users ALL
+
+= button_to 'Sign up', users_new_path
+
+%table
+  - @users.each do |user|
+    %tr
+      %td= user.name
