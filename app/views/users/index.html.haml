@@ -6,3 +6,4 @@
   - @users.each do |user|
     %tr
       %td= user.name
+      %td= link_to 'Destroy', {action: 'destroy', id: user.id}, {data: {method: :delete, confirm: 'Are you sure?'}}
