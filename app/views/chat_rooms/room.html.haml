@@ -1,38 +1,6 @@
 #data_storage{ data: { 'pusher-key' => Pusher.key, 'room-id' => @room.id } }
 
-:javascript
-  // Enable pusher logging - don't include this in production
-  Pusher.log = function(message) {
-    if (window.console && window.console.log) {
-      console.log(message);
-    }
-  };
-
-  $(function() {
-    var pusherKey = $('#data_storage').data('pusher-key');
-    var pusher = new Pusher(pusherKey);
-    var channelName = 'channel_' + $('#data_storage').data('room-id');
-    var channel = pusher.subscribe(channelName);
-    channel.bind('chat_event', function(data) {
-      if (data.id == $('#data_storage').data('room-id')) {
-        $("ul").append("<li>" + data.message["date"] + "-" + data.message["speaker"] + "</li>");
-        $("ul").append(data.message["content"]);
-      }
-    });
-  })
-
-  $(document).ready(function(){
-    $("#post").click(function(){
-      $.ajax({
-        type: "post",
-        url: "message",
-        data: "id=" + $('#data_storage').data('room-id') + "&data=" + $('#text').val()
-      });
-    });
-  })
-
 %h1= "Welcome to ChatRoom-#{@room.name}"
-
 %textarea#text{placeholder: "入力してください", cols: "40", rows: "4"}
 %input#post{type: "button", value: "送信"}
 = button_to "clear", {action: "clear", id: @room.id}, {confirm: "really?"}
