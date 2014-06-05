@@ -8,13 +8,16 @@
     }
   };
 
-  var pusherKey = $('#data_storage').data('pusher-key');
-  var pusher = new Pusher(pusherKey);
-  var channel = pusher.subscribe('test_channel');
-  channel.bind('chat_event', function(data) {
-    $("ul").append("<li>" + data.message["date"] + "-" + data.message["speaker"] + "</li>");
-    $("ul").append(data.message["content"]);
-      });
+  $(function() {
+    var pusherKey = $('#data_storage').data('pusher-key');
+    var pusher = new Pusher(pusherKey);
+    var channelName = 'channel_' + $('#data_storage').data('room-id');
+    var channel = pusher.subscribe(channelName);
+    channel.bind('chat_event', function(data) {
+      $("ul").append("<li>" + data.message["date"] + "-" + data.message["speaker"] + "</li>");
+      $("ul").append(data.message["content"]);
+    });
+  })
 
   $(document).ready(function(){
     $("#post").click(function(){

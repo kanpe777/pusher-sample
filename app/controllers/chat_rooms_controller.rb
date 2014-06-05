@@ -43,7 +43,7 @@ class ChatRoomsController < ApplicationController
     @room.chat = chat.to_json
     @room.save
     view_message = {date: message.date, speaker: message.speaker, content: message.content.gsub(/\r\n|\r|\n/, "<br />")}
-    Pusher['test_channel'].trigger('chat_event', { message: view_message })
+    Pusher["channel_#{@room.id}"].trigger('chat_event', { message: view_message })
   end
 
   private
