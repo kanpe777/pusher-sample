@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'pusher#index'
+  root 'chat_rooms#index'
 
   get    '/chat_rooms',         to: 'chat_rooms#index'
   post   '/chat_rooms',         to: 'chat_rooms#create'
@@ -8,9 +8,6 @@ Rails.application.routes.draw do
   post   '/chat_rooms/new',     to: 'chat_rooms#new'
   post   '/chat_rooms/clear',   to: 'chat_rooms#clear'
   post   '/chat_rooms/message', to: 'chat_rooms#message'
-
-  post '/pusher/create',  to: 'pusher#create'
-  post '/pusher/clear',   to: 'pusher#clear'
 
   get '*path', to: 'application#render_404'
 end
