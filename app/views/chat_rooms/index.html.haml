@@ -1,0 +1,8 @@
+%h1 ChatRooms
+
+= button_to 'New Chat Room', chat_rooms_new_path
+
+- @rooms.each do |room|
+  %tr
+    %td= room.name
+/    %td= link_to 'Enter', room
