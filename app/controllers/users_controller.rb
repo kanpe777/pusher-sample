@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:destroy]
+  before_action :signed_in_user, only: [:destroy, :show]
   def index
     @users = User.all
   end
@@ -18,7 +18,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
+    user = User.find(params[:id])
+    user.destroy
     redirect_to users_url, notice: 'User was successfully destroyed'
   end
 
@@ -31,7 +32,11 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :password, :password_confirmation)
     end
 
-    def set_user
-      @user = User.find(params[:id])
+    def signed_in_user
+      store_location
+      unless signed_in?
+        flash[:warning] = "Please sign in"
+        redirect_to signin_url
+      end
     end
 end
