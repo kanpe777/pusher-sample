@@ -32,6 +32,10 @@ module UserSessionsHelper
     session[:return_to] = request.url
   end
 
+  def clear_location
+    session.delete(:return_to)
+  end
+
   def redirect_back_or(options = {}, response_status = {})
     if session[:return_to]
       redirect_to session[:return_to]

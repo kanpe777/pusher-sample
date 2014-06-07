@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:destroy, :show]
   def index
+    clear_location
     @users = User.all
   end
 
