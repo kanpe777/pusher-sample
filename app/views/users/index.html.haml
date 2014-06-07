@@ -1,6 +1,7 @@
 %h1 Users ALL
 
-= button_to 'Sign up', users_new_path
+= button_to 'Sign up', signup_path
+= button_to 'Sign in', signin_path, method: :get
 
 %table
   - @users.each do |user|

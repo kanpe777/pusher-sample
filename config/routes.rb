@@ -9,10 +9,13 @@ Rails.application.routes.draw do
   post   '/chat_rooms/clear',   to: 'chat_rooms#clear'
   post   '/chat_rooms/message', to: 'chat_rooms#message'
 
-  get    '/users',          to: 'users#index'
-  post   '/users',          to: 'users#create'
-  post   '/users/new',      to: 'users#new'
+  get    '/users',     to: 'users#index'
+  post   '/users',     to: 'users#create'
+  get    '/signup',    to: 'users#new'
   delete '/users/:id', to: 'users#destroy'
+
+  get  '/signin', to: 'user_sessions#new'
+  post '/signin', to: 'user_sessions#create'
 
   get '*path', to: 'application#render_404'
 end
