@@ -8,6 +8,9 @@ class UserSessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       sign_in user
       redirect_to controller: :chat_rooms, action: :index
+    else
+      flash.now[:danger] = 'Invalid password combination'
+      render 'new'
     end
   end
 
