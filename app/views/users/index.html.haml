@@ -10,7 +10,9 @@
   %tr
     %th ID
     %th NAME
+    %th ADMIN
   - @users.each do |user|
     %tr
       %td= user.id
       %td= user.name
+      %td= user.admin ? "YES" : "NO"
