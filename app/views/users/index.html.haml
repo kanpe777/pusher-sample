@@ -1,8 +1,8 @@
 %h1 Users ALL
 
-= button_to 'Sign up',  signup_path,  method: :get
+= button_to 'Sign up',  signup_path, method: :get
 - if signed_in?
-  = button_to 'Sign out', signout_path, method: :delete
+  = button_to 'My page', {action: :show, id: current_user.id}, method: :get
 - else
   = button_to 'Sign in',  signin_path,  method: :get
 
@@ -10,4 +10,3 @@
   - @users.each do |user|
     %tr
       %td= user.name
-      %td= link_to 'Destroy', {action: 'destroy', id: user.id}, {data: {method: :delete, confirm: 'Are you sure?'}}
