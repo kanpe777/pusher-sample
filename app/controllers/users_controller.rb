@@ -25,6 +25,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    unless current_user?(@user)
+      correct_user = current_user
+      redirect_to action: :show, id: correct_user.id
+      return
+    end
   end
 
   private
