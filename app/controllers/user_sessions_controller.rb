@@ -16,6 +16,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     sign_out
-    redirect_to root_url
+    redirect_to users_path
   end
 end
