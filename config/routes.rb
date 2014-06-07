@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   get    '/signup',    to: 'users#new'
   delete '/users/:id', to: 'users#destroy'
 
-  get  '/signin', to: 'user_sessions#new'
-  post '/signin', to: 'user_sessions#create'
+  get    '/signin',  to: 'user_sessions#new'
+  post   '/signin',  to: 'user_sessions#create'
+  delete '/signout', to: 'user_sessions#destroy'
 
   get '*path', to: 'application#render_404'
 end

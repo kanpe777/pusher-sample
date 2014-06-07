@@ -1,7 +1,8 @@
 %h1 Users ALL
 
-= button_to 'Sign up', signup_path
-= button_to 'Sign in', signin_path, method: :get
+= button_to 'Sign up',  signup_path,  method: :get
+= button_to 'Sign in',  signin_path,  method: :get
+= button_to 'Sign out', signout_path, method: :delete
 
 %table
   - @users.each do |user|
