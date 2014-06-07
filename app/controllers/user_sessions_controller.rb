@@ -7,7 +7,7 @@ class UserSessionsController < ApplicationController
     user = User.find_by(name: params[:name])
     if user && user.authenticate(params[:password])
       sign_in user
-      redirect_to controller: :chat_rooms, action: :index
+      redirect_to controller: :users, action: :show, id: user.id
     else
       flash.now[:danger] = 'Invalid password combination'
       render 'new'
