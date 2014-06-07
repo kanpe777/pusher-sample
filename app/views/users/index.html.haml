@@ -6,7 +6,11 @@
 - else
   = button_to 'Sign in',  signin_path,  method: :get
 
-%table
+%table{border: "5"}
+  %tr
+    %th ID
+    %th NAME
   - @users.each do |user|
     %tr
+      %td= user.id
       %td= user.name
