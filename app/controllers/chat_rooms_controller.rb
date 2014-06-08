@@ -10,6 +10,9 @@ class ChatRoomsController < ApplicationController
 
   def create
     @room = ChatRoom.new(chat_room_params)
+    if signed_in?
+      @room.admin_user = current_user
+    end
     hash_chat  = ChatRoom.initialized_chat
     @room.chat = hash_chat.to_json
     if @room.save

@@ -7,10 +7,12 @@
     %th ID
     %th ROOM NAME
     %th PRIVATE?
+    %th ADMIN
   - @rooms.each do |room|
     %tr
       %td= room.id
       %td= room.name
       %td= room.private ? 'PRIVATE' : 'PUBLIC'
+      %td= room.admin_user ? room.admin_user.name : 'Nothing'
       %td= link_to 'Enter', {action: 'room', id: room.id}
       %td= link_to 'Destroy', {action: 'destroy', id: room.id}, {data: {method: :delete, confirm: 'Are you sure?'}}

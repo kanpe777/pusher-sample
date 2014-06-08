@@ -1,4 +1,6 @@
 class ChatRoom < ActiveRecord::Base
+  belongs_to :admin_user, class_name: :User
+
   def ChatRoom.initialized_chat
     chat = {
       messages: []
