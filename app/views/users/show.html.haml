@@ -1,6 +1,24 @@
+%h4= link_to 'HOME', users_path, method: :get
+
 %h1 User page
 %h2 Welcome #{@user.name}
 
 = button_to 'Sign out', signout_path, method: :delete
+
+%table{border: "2"}
+  %tr
+    - 4.times do
+      %th NAME
+      %th RELATION
+      %th REQUEST
+  - @users.each_with_index do |user, i|
+    - if i%4 == 0
+      %tr
+    %td= user.name
+    - relation = @user.relation(user)
+    %td= relation
+    %td
+      = button_to 'Friend Request', {controller: :friend_ships, action: :friend_request, from_id: @user.id, to_id: user.id} if relation == 'Nothing'
+
 - unless @user.admin?
   = button_to 'Cancel the membership', {action: 'destroy', id: @user.id}, {data: {method: :delete, confirm: 'Are you sure?'}}

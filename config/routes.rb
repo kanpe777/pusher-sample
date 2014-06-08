@@ -19,5 +19,7 @@ Rails.application.routes.draw do
   post   '/signin',  to: 'user_sessions#create'
   delete '/signout', to: 'user_sessions#destroy'
 
+  post '/friend_request', to: 'friend_ships#friend_request'
+
   get '*path', to: 'application#render_404'
 end
