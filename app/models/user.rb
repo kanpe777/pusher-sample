@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def has_relation?(user)
-    self.relation(user) != 'Nothing'
+    relation(user) != 'Nothing'
   end
 
   def User.new_remember_token

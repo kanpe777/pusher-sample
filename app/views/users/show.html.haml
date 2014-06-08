@@ -7,18 +7,18 @@
 
 %table{border: "2"}
   %tr
-    - 4.times do
+    - 6.times do
       %th NAME
       %th RELATION
-      %th REQUEST
   - @users.each_with_index do |user, i|
-    - if i%4 == 0
+    - if i%6 == 0
       %tr
     %td= user.name
     - relation = @user.relation(user)
-    %td= relation
     %td
-      = button_to 'Friend Request', {controller: :friend_ships, action: :friend_request, from_id: @user.id, to_id: user.id} if relation == 'Nothing'
+      = button_to 'Friend Request',  {controller: :friend_ships, action: :friend_request, from_id: @user.id, to_id: user.id} if relation == 'Nothing'
+      = button_to 'Approve request', {controller: :friend_ships, action: :approve, from_id: user.id, to_id: @user.id}        if relation == 'Has been requested'
+      = relation if relation != 'Nothing' && relation != 'Has been requested'
 
 - unless @user.admin?
   = button_to 'Cancel the membership', {action: 'destroy', id: @user.id}, {data: {method: :delete, confirm: 'Are you sure?'}}
