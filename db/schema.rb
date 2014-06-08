@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607095254) do
+ActiveRecord::Schema.define(version: 20140608071902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140607095254) do
     t.json     "chat"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "private",    default: false
   end
 
   create_table "friend_ships", force: true do |t|
