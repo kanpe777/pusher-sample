@@ -24,6 +24,9 @@ class ChatRoomsController < ApplicationController
 
   # like show
   def room
+    unless allow_enter_room?
+      redirect_to controller: :application, action: :render_404
+    end
     Pusher.url = ENV["PUSHER_URL"]
     @messages = @room.chat['messages']
   end
@@ -67,5 +70,9 @@ class ChatRoomsController < ApplicationController
 
     def chat_room_params
       params.require(:chat_room).permit(:name, :private)
+    end
+
+    def allow_enter_room?
+      !@room.private || @room.joined_users.include?(current_user) || (signed_in? && current_user.admin)
     end
 end
