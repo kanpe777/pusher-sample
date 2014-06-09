@@ -21,4 +21,4 @@
       = relation if relation != 'Nothing' && relation != 'Has been requested'
 
 - unless @user.admin?
-  = button_to 'Cancel the membership', {action: 'destroy', id: @user.id}, {data: {method: :delete, confirm: 'Are you sure?'}}
+  = button_to 'Cancel the membership', {action: 'destroy', id: @user.id}, {method: :delete, data: {confirm: 'Are you sure?'}}

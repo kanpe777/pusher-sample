@@ -5,8 +5,11 @@
     %th ID
     %th NAME
     %th ADMIN
+    %th DELETE
   - @users.each do |user|
     %tr
       %td= user.id
       %td= user.name
       %td= user.admin ? "YES" : "NO"
+      - unless user.admin
+        %td= button_to 'Delete', {action: 'destroy', id: user.id}, {method: :delete, data: {confirm: 'Are you sure?'}}
