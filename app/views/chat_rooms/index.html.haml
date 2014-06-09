@@ -24,5 +24,7 @@
       %td= room.name
       %td= room.private ? 'PRIVATE' : 'PUBLIC'
       %td= room.admin_user ? room.admin_user.name : 'Nothing'
-      %td= link_to 'Enter', {action: 'room', id: room.id}
-      %td= link_to 'Destroy', {action: 'destroy', id: room.id}, {data: {method: :delete, confirm: 'Are you sure?'}}
+      - if !room.private || room.joined_users.include?(current_user) || (signed_in? && current_user == room.admin_user) || (signed_in? && current_user.admin)
+        %td= link_to 'Enter', {action: 'room', id: room.id}
+      - if !room.private || (signed_in? && current_user == room.admin_user) || (signed_in? && current_user.admin)
+        %td= link_to 'Destroy', {action: 'destroy', id: room.id}, {data: {method: :delete, confirm: 'Are you sure?'}}
