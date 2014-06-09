@@ -1,6 +1,13 @@
 - if signed_in?
   %h1 Welcome to #{current_user.name}
 
+- if signed_in?
+  = button_to 'My page', {controller: :users, action: :show, id: current_user.id}, method: :get
+  = button_to 'Sign out', signout_path, method: :delete
+- else
+  = button_to 'Sign up',  signup_path,  method: :get
+  = button_to 'Sign in',  signin_path,  method: :get
+
 %h1 ChatRooms
 
 = button_to 'New Chat Room', chat_rooms_new_path
