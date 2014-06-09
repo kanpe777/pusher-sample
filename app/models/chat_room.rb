@@ -9,6 +9,10 @@ class ChatRoom < ActiveRecord::Base
     }
   end
 
+  def throwout(user)
+    participation_permissions.find_by(user_id: user.id).destroy
+  end
+
   class ChatRoom::Message
     require 'date'
     attr_reader :speaker, :date, :content

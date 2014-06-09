@@ -59,10 +59,18 @@ class ChatRoomsController < ApplicationController
   def invite
     invited_user = User.find_by(name: params[:search_name])
     room = ChatRoom.find(params[:id])
-    ChatRoom.find(params[:id])
     if invited_user && !room.joined_users.include?(invited_user)
       permission = ParticipationPermissionToChat.create(user: invited_user, chat_room: room)
       room.participation_permissions.push(permission)
+    end
+    redirect_to action: :room
+  end
+
+  def throwout
+    target_user = User.find(params[:target_id])
+    room = ChatRoom.find(params[:id])
+    if target_user && room.joined_users.include?(target_user)
+      room.throwout(target_user)
     end
     redirect_to action: :room
   end

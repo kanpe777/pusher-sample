@@ -13,8 +13,11 @@
   %h3 Joined users
   %h4 Admin : #{@room.admin_user.name}
   %ul
-  - @room.joined_users.each do |user|
-    %li= user.name
+    - @room.joined_users.each do |user|
+      %li
+        = user.name
+        - if @room.admin_user && @room.admin_user == current_user
+          = button_to 'Good bye', {action: :throwout, target_id: user.id}
 
 %textarea#text{placeholder: "入力してください", cols: "40", rows: "4"}
 %input#post{type: "button", value: "送信"}
