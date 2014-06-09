@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def show
     @user  = User.find(params[:id])
-    @users = User.all
+    @users = User.where(admin: false)
     unless current_user?(@user)
       correct_user = current_user
       redirect_to action: :show, id: correct_user.id

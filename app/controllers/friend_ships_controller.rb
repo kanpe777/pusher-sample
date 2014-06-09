@@ -2,8 +2,8 @@ class FriendShipsController < ApplicationController
   def friend_request
     from_user = User.find(params[:from_id])
     to_user   = User.find(params[:to_id])
-    if from_user.has_relation?(to_user)
-      redirect_to controller: :users, action: :show, id: current_user.id, notice: 'Already done'
+    if from_user.has_relation?(to_user) || (to_user && to_user.admin)
+      redirect_to controller: :users, action: :show, id: current_user.id, notice: 'Nothing or already done'
       return
     end
 
