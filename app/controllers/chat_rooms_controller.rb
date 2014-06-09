@@ -26,6 +26,7 @@ class ChatRoomsController < ApplicationController
   def room
     unless allow_enter_room?
       redirect_to controller: :application, action: :render_404
+      return
     end
     Pusher.url = ENV["PUSHER_URL"]
     @messages = @room.chat['messages']
