@@ -7,7 +7,7 @@ class UserSessionsController < ApplicationController
     user = User.find_by(name: params[:name])
     if user && user.authenticate(params[:password])
       sign_in user
-      redirect_back_or controller: :users, action: :show, id: user.id
+      redirect_to root_path
     else
       flash.now[:danger] = 'Invalid password combination'
       render 'new'
@@ -16,6 +16,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     sign_out
-    redirect_to users_path
+    redirect_to root_path
   end
 end
