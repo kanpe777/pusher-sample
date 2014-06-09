@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:destroy, :show]
   def index
+    unless signed_in? && current_user.admin
+      redirect_to controller: :application, action: :render_404
+      return
+    end
     clear_location
     @users = User.all
   end
