@@ -25,6 +25,9 @@ class ChatRoomsController < ApplicationController
   # like show
   def room
     unless allow_enter_room?
+      puts '----------------------------------'
+      p params
+      puts '----------------------------------'
       redirect_to controller: :application, action: :render_404
       return
     end
@@ -74,6 +77,6 @@ class ChatRoomsController < ApplicationController
     end
 
     def allow_enter_room?
-      !@room.private || @room.joined_users.include?(current_user) || (signed_in? && current_user.admin)
+      !@room.private || @room.joined_users.include?(current_user) || (signed_in? && @room.admin_user == current_user) || (signed_in? && current_user.admin)
     end
 end
