@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140608111322) do
+ActiveRecord::Schema.define(version: 20140609064834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 20140608111322) do
 
   create_table "messages", force: true do |t|
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participation_permission_to_chats", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "chat_room_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

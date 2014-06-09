@@ -1,6 +1,21 @@
 #data_storage{ data: { 'pusher-key' => Pusher.key, 'room-id' => @room.id } }
 
 %h1= "Welcome to ChatRoom-#{@room.name}"
+%h2= "Created by #{@room.admin_user ? @room.admin_user.name : "Unknown User"}"
+
+- if @room.private && @room.admin_user && @room.admin_user == current_user
+  = form_tag(action: :invite) do
+    .field
+      = text_field_tag :search_name, nil, placeholder: 'Search User'
+      = submit_tag 'Search'
+
+- if @room.private
+  %h3 Joined users
+  %h4 Admin : #{@room.admin_user.name}
+  %ul
+  - @room.joined_users.each do |user|
+    %li= user.name
+
 %textarea#text{placeholder: "入力してください", cols: "40", rows: "4"}
 %input#post{type: "button", value: "送信"}
 = button_to "clear", {action: "clear", id: @room.id}, {confirm: "really?"}

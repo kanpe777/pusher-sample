@@ -49,6 +49,17 @@ class ChatRoomsController < ApplicationController
     Pusher["channel_#{@room.id}"].trigger('chat_event', { message: view_message, id: @room.id })
   end
 
+  def invite
+    invited_user = User.find_by(name: params[:search_name])
+    room = ChatRoom.find(params[:id])
+    ChatRoom.find(params[:id])
+    if invited_user && !room.joined_users.include?(invited_user)
+      permission = ParticipationPermissionToChat.create(user: invited_user, chat_room: room)
+      room.participation_permissions.push(permission)
+    end
+    redirect_to action: :room
+  end
+
   private
     def set_chat_room
       @room = ChatRoom.find(params[:id])
